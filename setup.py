@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pycaptcha",
+    name="pycapt",
     version="0.0.1",
     author="aboutmydreams",
     author_email="aboutmydreams@163.com",
