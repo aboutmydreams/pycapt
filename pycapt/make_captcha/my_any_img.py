@@ -2,8 +2,6 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import numpy as np
 import random,time
 
-import make_captcha.noise
-
 
 # 随机字母:
 def rndChar():
@@ -18,14 +16,14 @@ def rndColor2():
     return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
 
 # 随机自定义字符
-def my_random_str(my_str_list):
+def my_random_str(my_str_list,n):
+    return random.sample(my_random_str,n)
 
-
-def get_captcha(width,height,num_of_str,gray_value=255):
+def get_captcha(width,height,num_of_str,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
     image = Image.new('RGB', (width, height), (255, 255, 255))
 
     # 创建Font对象:
-    font = ImageFont.truetype('ヒラギノ角ゴシック W8.ttc', 31) # '/Library/Fonts/Bodoni 72.ttc'  'ヒラギノ角ゴシック W8.ttc'
+    font = ImageFont.truetype(font_family, 31) # '/Library/Fonts/Bodoni 72.ttc'  'ヒラギノ角ゴシック W8.ttc'
 
     # 创建Draw对象:
     draw = ImageDraw.Draw(image)

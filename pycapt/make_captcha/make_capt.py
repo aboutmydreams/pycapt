@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import numpy as np
 import random,time
 
-from pycaptcha import make_captcha
+from pycapt import make_captcha
 
 
 
@@ -81,8 +81,8 @@ def img_pan(mode,width_x,height_y):
 
 
 # 生成训练集图片
-def train_img():
-    char_list,image = get_captcha(30,32,num_of_str=1,gray_value=255)
+def train_img(width,height,num_of_str=1,gray_value=255):
+    char_list,image = get_captcha(width,height,num_of_str,gray_value)
     file_name = char_list[0] + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
     # image.show()
     # 在这里增加难度与异动

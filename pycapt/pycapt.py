@@ -41,8 +41,8 @@ def make_capt_img(width,height,num_of_str,gray_value=255):
 
 
 # 生成简单的大写字母训练集图片
-def get_train_img():
-    file_name,image = pycapt.make_captcha.make_capt.train_img()
+def get_train_img(width,height,num_of_str,gray_value=255):
+    file_name,image = pycapt.make_captcha.make_capt.train_img(width,height,num_of_str,gray_value)
     return file_name,image
 
 # 自定义生成训练图片
@@ -98,5 +98,7 @@ def rectify_img(image, pans):
 
 def rectify_mode(mode, pans):
     return pycapt.solve_it.rectify_mode(mode,pans)
+
+
 # img = Image.open('1.png')
 # print(get_mode(img))
