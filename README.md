@@ -9,7 +9,6 @@ pycaptcha 包括处理验证码和生成验证码两部分，多谢我的好友 
 Pillow
 numpy
 random
-time
 heapq
 ```
 

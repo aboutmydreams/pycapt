@@ -43,21 +43,23 @@ def clear_line(image, N, pans=None):
     return image
 
 
-
 # 判断列表中连续的三个位置是否是0,且相邻位置是1，替换掉这3个0
 def is_three0(column, N):
-    column_str = ''.join(map(str,column))
-    zero_site_list = [i for i,v in enumerate(column) if v==0]
+    if N == 0:
+        return column
+    else:
+        column_str = ''.join(map(str,column))
+        zero_site_list = [i for i,v in enumerate(column) if v==0]
 
-    for i in  zero_site_list[-N:]:
-        if i > len(column)-N-1:
-            zero_site_list.remove(i)
+        for i in  zero_site_list[-N:]:
+            if i > len(column)-N-1:
+                zero_site_list.remove(i)
 
-    for i in zero_site_list:
-        if i > 0 and column_str[i:i+N] == '0' * N and column_str[i+N] == '1' and column_str[i-1] == '1':
-            column_str = column_str[:i] + '1' * N + column_str[i+N:]
-    column = list(map(int,column_str))
-    return column
+        for i in zero_site_list:
+            if i > 0 and column_str[i:i+N] == '0' * N and column_str[i+N] == '1' and column_str[i-1] == '1':
+                column_str = column_str[:i] + '1' * N + column_str[i+N:]
+        column = list(map(int,column_str))
+        return column
 
 # 处理真实图片
 def clear_my_line(img):
@@ -79,3 +81,24 @@ def clear_my_train_img(img):
     img2 = clear_line(img2,2)
     img2 = clear_line(img2,1)
     return img2
+
+
+# 斜体图片纠正
+def rectify_img(image, pans):
+    mode = get_modes(image)
+    new_mode = []
+    for k,line in enumerate(mode.tolist()):
+        line = pan(line,pans[k])
+        new_mode.append(line)
+    array_mode = np.array(new_mode).astype('uint8')
+    image = Image.fromarray(array_mode).convert('RGB')
+    return image
+
+# 斜体矩阵纠正
+def rectify_mode(mode, pans):
+    new_mode = []
+    for k,line in enumerate(mode.tolist()):
+        line = pan(line,pans[k])
+        new_mode.append(line)
+    array_mode = np.array(new_mode).astype('uint8')
+    return array_mode

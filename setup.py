@@ -11,7 +11,7 @@ setuptools.setup(
     description="a library that processes verification codes",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/aboutmydreams/pycaptcha",
+    url="https://github.com/aboutmydreams/pycapt",
     packages=setuptools.find_packages(),
     classifiers=[
     "Programming Language :: Python :: 3",

@@ -3,19 +3,6 @@ import numpy as np
 import heapq
 
 # np.set_printoptions(threshold=np.inf)
-
-
-def get_small_modes(img,background=None):
-    img = img.convert('L')
-    box1 = (10, 4, 150, 36)
-    img1 = img.crop(box1)
-    mode = np.array(img1)
-    if background:
-        mode = np.where(mode < 100, 0, background)
-    else:
-        mode = np.where(mode < 100, 0, 1)
-    return mode
-
 def mode_to_img(mode,background=None):
     if background:
         mode = np.where(mode < 1, 0, background)
@@ -23,79 +10,34 @@ def mode_to_img(mode,background=None):
     image = Image.fromarray(array_mode).convert('RGB')
     return image
 
-def is_white_column(column):
-    # print(column)
-    for c in column:
-        if c == 0:
-            return False
-    return True
+def get_modes(img,Threshold=100):
+    img = img.convert('L')
+    mode = np.array(img)
+    mode = np.where(mode < Threshold, 0, 1)
+    return mode
 
-def cut_from_rect(rect, start, end):
-    # print("cut from %s to %s" % (start, end))
-    return rect[:, start:end]
-# 返回分割后的numpy矩阵
-def vertical_cut(rect):
-    max_width = 35
-    last_position = 0
-    # print(rect)
-    width = rect.shape[1]
+def get_small_modes(img,box=(10, 4, 150, 36),background=None):
+    img = img.convert('L')
+    img1 = img.crop(box)
+    mode = np.array(img1)
+    if background:
+        mode = np.where(mode < 100, 0, background)
+    else:
+        mode = np.where(mode < 100, 0, 1)
+    return mode
 
-    result = []
-    bools = []
-    for x in range(width):
-        c_position = x
-        bools.append(is_white_column(rect[:, x]))
-        
-        if not bools[c_position] and c_position == 0:
-            continue
-        
-        if not bools[c_position] and bools[c_position - 1]:
-            last_position = c_position - 1
-            continue
-        
-        if (bools[c_position] and not bools[c_position - 1]):
-            # 开始截取, 从last_position到c_position
-            delta = c_position - last_position
-            if delta <= 1: # 像这样到肯定有问题，直接跳过
-                continue
-            
-            bit = float(delta)/float(max_width)
-
-            point_right = bit - int(bit)
-            if point_right > 0.3:
-                npart = int(bit) + 1
-                interval = int(delta/npart)
-                for i in range(npart):
-                    if i == npart - 1:
-                        # 考虑到整数运算会有误差，所以到最后一步就直接 last_position + inpart : c_position
-                        result.append(cut_from_rect(rect, last_position, c_position))
-                        last_position = c_position
-                    else:
-                        # 取last_position + i*npart : last_position + (i+1)*npart
-                        result.append(cut_from_rect(rect, last_position, (last_position+(i+1)*interval)))
-                        last_position += interval
-                        
-                
-            
-    # for x in range(width):
-    #     c_position = x
-    #     bools.append(is_white_column(rect[:, x]))        
-    #     if bools[-1] and (bools[-2] if bools.__len__() > 2 else True):
-    #         last_position = c_position
-    #     if bools[-1] and (not bools[-2] if bools.__len__() > 2 else True):
-    #         if c_position - last_position >= 35:
-    #             x1 = last_position
-    #             x2 = int((c_position + last_position)/2)
-    #             x3 = c_position
-    #             # print(x1, x2, x3)
-    #             result.extend([rect[:, x1:x2], rect[:, x2:x3]])
-    #         else:
-    #             # print(last_position, c_position)
-    #             result.append(rect[:, last_position:c_position+1])
-    #         last_position = c_position
-    # result.pop(0)
-    # result.pop(0)
-    return result
+def get_small_img(img,box=(10, 4, 150, 36),background=None):
+    img = img.convert('L')
+    img1 = img.crop(box)
+    mode = np.array(img1)
+    if background:
+        mode = np.where(mode < 100, 0, background)
+    else:
+        mode = np.where(mode < 100, 0, 1)
+    if background:
+        return mode_to_img(mode,background)
+    else:
+        return mode_to_img(mode)
 
 def cut_mode(mode,max_width,need_num=4):
     ### 获取边缘列（字母边缘 白色）位置的列表 
@@ -189,12 +131,11 @@ def cut_mode(mode,max_width,need_num=4):
     return mode_list
 
 def cut_img(img,max_width):
-    my_mode = get_small_modes(img)
+    my_mode = get_modes(img)
 
     # img2 = mode_to_img(my_mode,255)
     # img2.show()
 
-    # li = vertical_cut(my_mode)
     li = cut_mode(my_mode,max_width=30)
     for k,i in enumerate(li):
         its_height = np.shape(i)[0]

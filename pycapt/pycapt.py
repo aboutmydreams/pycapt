@@ -1,6 +1,4 @@
-import pycapt.solve_it.cut_img
-import pycapt.solve_it.de_line
-import pycapt.solve_it.de_point
+import pycapt.solve_it
 
 from PIL import Image
 import pycapt.make_captcha.noise
@@ -88,5 +86,17 @@ def cut_img_to_img_list(image,max_width,background=None):
         img_mode_list = pycapt.solve_it.cut_img.cut_img(image,max_width)
         return map(mode_img,img_mode_list)
 
+
+def small_img(img,box):
+    return pycapt.solve_it.get_small_img(img,box)
+
+def small_mode(img,box):
+    return pycapt.solve_it.get_small_modes(img,box)
+
+def rectify_img(image, pans):
+    return pycapt.solve_it.rectify_img(image,pans)
+
+def rectify_mode(mode, pans):
+    return pycapt.solve_it.rectify_mode(mode,pans)
 # img = Image.open('1.png')
 # print(get_mode(img))

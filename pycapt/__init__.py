@@ -83,3 +83,9 @@ def cut_img_to_img_list(image,max_width,background=None):
         return pycapt.pycapt.cut_img_to_img_list(image,max_width,background=255)
     else:
         return pycapt.pycapt.cut_img_to_img_list(image,max_width,background=None)
+
+def rectify_img(image, pans):
+    return pycapt.solve_it.rectify_img(image,pans)
+
+def rectify_mode(mode, pans):
+    return pycapt.solve_it.rectify_mode(mode,pans)
