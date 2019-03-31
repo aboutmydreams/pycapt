@@ -35,18 +35,16 @@ def mode_pan(mode,width_x,height_y):
 
 
 # 生成验证码 长宽 字符串个数 背景颜色 一般要上线用的话看源码改一改就好了
-def make_capt_img(width,height,num_of_str,gray_value=255):
-    image = pycapt.make_captcha.make_capt.get_captcha(width,height,num_of_str,gray_value=255)
+def mk_captcha(my_str_list,width,height,num_of_str,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
+    image = pycapt.make_captcha.my_any_img.mk_captcha(my_str_list,width,height,num_of_str,gray_value,font_family)
     return image
 
 
-# 生成简单的大写字母训练集图片
-def get_train_img(width,height,num_of_str,gray_value=255):
-    file_name,image = pycapt.make_captcha.make_capt.train_img(width,height,num_of_str,gray_value)
-    return file_name,image
-
-# 自定义生成训练图片
-# def my_train_img():
+# 生成简单的训练集图片
+def get_train_img(my_str_list,width,height,num_of_str,font=30,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
+    str_list,image = pycapt.make_captcha\
+    .my_any_img.mk_captcha(my_str_list,width,height,num_of_str,font,gray_value,font_family)
+    return str_list,image
 
 
 def mode_img(mode,background=None):
@@ -90,12 +88,14 @@ def cut_img_to_img_list(image,max_width,background=None):
 def small_img(img,box):
     return pycapt.solve_it.get_small_img(img,box)
 
-def small_mode(img,box):
+def small_mode(mode,box):
+    img = mode_img(mode)
     return pycapt.solve_it.get_small_modes(img,box)
 
 def rectify_img(image, pans):
     return pycapt.solve_it.rectify_img(image,pans)
 
+# 返回斜体纠正后的np数组
 def rectify_mode(mode, pans):
     return pycapt.solve_it.rectify_mode(mode,pans)
 

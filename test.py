@@ -1,6 +1,6 @@
 import pycapt
 from PIL import Image
-
+'''
 img = Image.open('1.png')
 img = pycapt.two_value(img,Threshold=100)
 img = pycapt.dele_noise(img,N=5,Z=2)
@@ -34,4 +34,13 @@ a = pycapt.cut_img_to_img_list(img,30,255)
 for i in a:
     i.show()
 
+'''
 
+name,img = pycapt.do_captcha(
+        my_str_list=['A','B','C','D','1','2','3'],
+        width=160,
+        height=40,
+        num_of_str=4)
+
+print(name)
+img.show()

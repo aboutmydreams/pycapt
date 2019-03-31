@@ -2,6 +2,8 @@
 
 # 什么是 pycapt
 
+[GitHub 欢迎提 pr，如果有bug或新需求 请反馈 issue]()
+
 pycapt 是我在处理验证码时编写的一系列图像处理的算法包，你可以使用它来为图像去噪点、干扰线 以及分割验证码，pycapt 封装了一些关于图形矩阵的方法，例如将图片分割为标准化的矩阵、生成您所需要的训练集图片等，有助于您使用深度学习来进行图像识别。
 
 pycapt 包括处理验证码和生成验证码两部分，多谢我的好友 [exqlnet](<https://github.com/exqlnet>) [ZhouYingSASA](<https://github.com/ZhouYingSASA>) 的共同帮助 发布 pycapt 0.0.1
@@ -95,13 +97,11 @@ img = pycapt.tran_90(img)
 img.show()
 ```
 
-![frcc2](img/frcc-1.png)
-
 ![frcc2](img/frcc4.png)
 
 ### 斜体矫正
 
-**斜体矫正的目的是为了更好的分割与识别。**原理是平移，将每一行向左或向右平移不同距离，最后形成矫正的效果。pans就是矫正列表，正左负右平移。
+**斜体矫正的目的是为了更好的分割与识别。**原理是平移，将每一行向左或向右平移不同距离，最后形成矫正的效果。pans就是矫正列表，正左负右平移。pans列表的元素个数需要是图片的高度，例子中图片 height 是40.
 
 **rectify_img(img,pans) 返回新的图片。**
 
@@ -133,6 +133,8 @@ img.show()
 
 ### 图形分割
 
+**cut_img_to_img_list** 设置单个图片合适长度后切割，返回该长度的切割图片，该长度可以设置的比较大，该方法会在切割图片的两边补白。你可以将这作为一种标准化图片的方法。
+
 ```py
 img = Image.open('1.png')
 img_list = pycapt.cut_img_to_img_list(img,max_width=30,background=255)
@@ -142,7 +144,31 @@ for i in img_list:
 
 ![frcc2](img/last.png)
 
-## 使用 pycapt 生成验证码
+当你使用**深度学习**时，还可以使用 **cut_img_to_mode_list(image,max_width) **来获得标准化的数组。
 
-再说八。
+### 图片裁剪
+
+当你的图片 height 可以压缩时，可以使用 **small_img(img,box)** 来裁剪图片，这样可以减少之后学习的计算量。
+
+例如
+
+## 使用 pycapt 生成验证码训练集
+
+如果你不知道自己电脑有哪些字体，请点击 [**这里**](<https://www.yuque.com/zhiwa/deepin/ahimr7>) 。
+
+```py
+name,img = pycapt.do_captcha(
+        my_str_list=['A','B','C','D','1','2','3'],
+        width=160,
+        height=40,
+        num_of_str=4,
+        font=30,
+        gray_value=255,
+        font_family='ヒラギノ角ゴシック W8.ttc')
+
+print(name)
+img.show()
+```
+
+![frcc2](img/do.png)
 

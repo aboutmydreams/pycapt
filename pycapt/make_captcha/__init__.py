@@ -1,6 +1,7 @@
 from PIL import Image
 import pycapt.make_captcha.noise
 import pycapt.make_captcha.make_capt
+import pycapt.make_captcha.my_any_img
 
 # 图像转化为01 np数组 Threshold为阀值
 def get_mode(img,Threshold=100):
@@ -33,15 +34,18 @@ def mode_pan(mode,width_x,height_y):
 
 
 # 生成验证码 长宽 字符串个数 背景颜色 一般要上线用的话看源码改一改就好了
-def make_capt_img(width,height,num_of_str,gray_value=255):
-    image = pycapt.make_captcha.make_capt.get_captcha(width,height,num_of_str,gray_value=255)
-    return image
+def make_capt_img(my_str_list,width,height,num_of_str,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
+    str_list,image = pycapt.make_captcha\
+    .my_any_img.mk_captcha(my_str_list,width,height,num_of_str,gray_value,font_family)
+    return str_list,image
 
 
 # 生成简单的大写字母训练集图片
 def get_train_img(width,height,num_of_str,gray_value=255):
     file_name,image = pycapt.make_captcha.make_capt.train_img(width,height,num_of_str,gray_value)
     return file_name,image
+
+
 
 # 自定义生成训练图片
 # def my_train_img():

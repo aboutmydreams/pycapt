@@ -17,13 +17,13 @@ def rndColor2():
 
 # 随机自定义字符
 def my_random_str(my_str_list,n):
-    return random.sample(my_random_str,n)
+    return random.sample(my_str_list,n)
 
-def get_captcha(width,height,num_of_str,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
+def mk_captcha(my_str_list,width,height,num_of_str,font=30,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
     image = Image.new('RGB', (width, height), (255, 255, 255))
 
     # 创建Font对象:
-    font = ImageFont.truetype(font_family, 31) # '/Library/Fonts/Bodoni 72.ttc'  'ヒラギノ角ゴシック W8.ttc'
+    font = ImageFont.truetype(font_family, font) # '/Library/Fonts/Bodoni 72.ttc'  'ヒラギノ角ゴシック W8.ttc'
 
     # 创建Draw对象:
     draw = ImageDraw.Draw(image)
@@ -35,7 +35,7 @@ def get_captcha(width,height,num_of_str,gray_value=255,font_family='ヒラギ
             draw.point((x, y), fill=(255,255,255))
 
     # 输出文字:
-    char_list = [rndChar() for i in range(num_of_str)]
+    char_list = my_random_str(my_str_list,num_of_str)
 
     for t in range(num_of_str):
         # rndColor2()
@@ -45,3 +45,9 @@ def get_captcha(width,height,num_of_str,gray_value=255,font_family='ヒラギ
     # image = image.filter(ImageFilter.BLUR)
     # image.save('train_imgs/1.png', 'jpeg');
     return char_list,image
+
+
+### 测试
+# a,b = mk_captcha(['A','B','1','2','3','4'],160,40,4)
+# print(a)
+# b.show()
