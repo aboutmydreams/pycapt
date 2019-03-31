@@ -19,7 +19,9 @@ numpy
 pip3 install pycapt
 ```
 
+### 目录结构
 
+![frcc0](img/files.png)
 
 ## 使用 pycapt 进行验证码图像处理
 
@@ -154,6 +156,10 @@ for i in img_list:
 
 ## 使用 pycapt 生成验证码训练集
 
+### do_captcha 生成验证码训练集
+
+width 验证码图片长度，height 验证码高度，num_of_str 验证码上字符数量 默认4，font 字体大小 默认30，gray_value 灰度值 默认255，font_family 字体文件，在这里可以选择你需要的粗细，样式等，但前提是你电脑上有这种字体。
+
 如果你不知道自己电脑有哪些字体，请点击 [**这里**](<https://www.yuque.com/zhiwa/deepin/ahimr7>) 。
 
 ```py
@@ -168,7 +174,24 @@ name,img = pycapt.do_captcha(
 
 print(name)
 img.show()
+
+# output： ['C', 'D', '2', 'A']
 ```
 
 ![frcc2](img/do.png)
+
+### 增加噪点
+
+```py
+img = pycapt.more_noise(img,N=0.5,Z=2)
+img.show()
+```
+
+![frcc2](img/do1.png)
+
+### 偏移
+
+
+
+
 

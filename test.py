@@ -1,5 +1,7 @@
 import pycapt
 from PIL import Image
+
+###处理验证码
 '''
 img = Image.open('1.png')
 img = pycapt.two_value(img,Threshold=100)
@@ -36,11 +38,21 @@ for i in a:
 
 '''
 
+
+### 生产验证码训练集
+
 name,img = pycapt.do_captcha(
         my_str_list=['A','B','C','D','1','2','3'],
         width=160,
         height=40,
-        num_of_str=4)
+        num_of_str=4,
+        font=30,
+        gray_value=255,
+        font_family='ヒラギノ角ゴシック W8.ttc')
 
+
+# pycapt.get_train_img()
+img = pycapt.more_noise(img,N=0.5,Z=2)
+img = pycapt.img_pan(img,-10,3)
 print(name)
 img.show()

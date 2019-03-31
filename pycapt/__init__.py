@@ -2,6 +2,8 @@ from PIL import Image
 import pycapt.make_captcha
 import pycapt.solve_it
 import pycapt
+import random,time
+
 
 name = "pycapt"
 
@@ -12,27 +14,22 @@ def get_mode(img,Threshold=100):
 
 # 将np数组噪点处理，mode 数组，N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回数组
 def show_noise_mode(mode, N, Z):
-    new_mode = pycapt.pycapt.show_noise_mode(mode, N, Z)
+    new_mode = pycapt.make_captcha.show_noise_mode(mode, N, Z)
     return new_mode
 
 # 将np数组噪点处理，mode 数组，N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回图片
 def show_noise_img(mode, N, Z):
-    new_img = pycapt.pycapt.show_noise_img(mode, N, Z)
+    new_img = pycapt.make_captcha.show_noise_img(mode, N, Z)
     return new_img
 
 # 偏移 传入np数组，横向偏移(默认右移)，纵向偏移，传出新的mode
 def mode_pan(mode,width_x,height_y):
-    new_mode = pycapt.pycapt.mode_pan(mode,width_x,height_y)
+    new_mode = pycapt.make_captcha.mode_pan(mode,width_x,height_y)
     return new_mode
 
-# 生成验证码 长宽 字符串个数 背景颜色 一般要上线用的话看源码改一改就好了
-def make_capt_img(width,height,num_of_str,gray_value=255):
-    image = pycapt.pycapt.make_capt_img(width,height,num_of_str,gray_value=255)
-    return image
-
 # 生成简单的大写字母训练集图片
-def get_train_img():
-    file_name,image = pycapt.pycapt.get_train_img()
+def get_train_img(width,height,num_of_str=1,xpan=3,ypan=2,rotate=15,gray_value=255):
+    file_name,image = pycapt.make_captcha.get_train_img(width,height,num_of_str,xpan,ypan,rotate,gray_value)
     return file_name,image
 
 # 将np数组转化为图片
@@ -99,3 +96,35 @@ def tran_90(img):
 # 生成验证码
 def do_captcha(my_str_list,width,height,num_of_str,font=30,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
     return pycapt.make_captcha.my_any_img.mk_captcha(my_str_list,width,height,num_of_str,font,gray_value,font_family)
+
+# 显示更多边缘噪点 N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回图片
+def more_noise(img,N=0.3,Z=2):
+    mode = get_mode(img)
+    img = show_noise_img(mode, N, Z)
+    return img
+
+def img_pan(img,x,y):
+    mode = get_mode(img)
+    new_mode = mode_pan(mode,x,y)
+    img = mode_img(new_mode,255)
+    return img
+
+
+def train_img(file_name,image,num_of_str=1,xpan=3,ypan=2,rotate=15,noise_N=0.3,noise_Z=2,gray_value=255):
+    # char_list,image = get_captcha(width,height,num_of_str,gray_value)
+    if type(file_name)==str:
+        file_name = file_name + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
+    elif type(file_name)==list:
+        file_name = ''.join(file_name) + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
+    # image.show()
+    # 在这里增加难度与异动
+    mode = get_mode(image,100)
+    # 偏移
+    mode = img_pan(mode,random.randint(-xpan,xpan),random.randint(-ypan,ypan))
+    # 添加噪点
+    image = more_noise(mode,noise_N,noise_Z)
+    # 旋转
+    image = image.rotate(random.randint(-rotate,rotate),fillcolor=255) 
+    # print(image.size)
+    # image.save('train_imgs/{}.png'.format(file_name))
+    return file_name,image

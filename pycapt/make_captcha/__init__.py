@@ -41,9 +41,11 @@ def make_capt_img(my_str_list,width,height,num_of_str,gray_value=255,font_family
 
 
 # 生成简单的大写字母训练集图片
-def get_train_img(width,height,num_of_str,gray_value=255):
-    file_name,image = pycapt.make_captcha.make_capt.train_img(width,height,num_of_str,gray_value)
+def get_train_img(width,height,num_of_str=1,xpan=3,ypan=2,rotate=15,gray_value=255):
+    file_name,image = pycapt.make_captcha.make_capt.train_img(width,height,num_of_str,xpan,ypan,rotate,gray_value)
     return file_name,image
+
+
 
 
 

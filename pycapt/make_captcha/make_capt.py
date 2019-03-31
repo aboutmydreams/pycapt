@@ -81,18 +81,18 @@ def img_pan(mode,width_x,height_y):
 
 
 # 生成训练集图片
-def train_img(width,height,num_of_str=1,gray_value=255):
+def train_img(width,height,num_of_str=1,xpan=3,ypan=2,rotate=15,gray_value=255):
     char_list,image = get_captcha(width,height,num_of_str,gray_value)
     file_name = char_list[0] + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
     # image.show()
     # 在这里增加难度与异动
     mode = get_modes(image,100)
     # 偏移
-    mode = img_pan(mode,random.randint(-3,3),random.randint(-2,2))
+    mode = img_pan(mode,random.randint(-xpan,xpan),random.randint(-ypan,ypan))
     # 添加噪点
     image = make_captcha.noise.more_noise(mode,N=0.3,Z=2,to_img='to_img')
     # 旋转
-    image = image.rotate(random.randint(-15,15),fillcolor=255) 
+    image = image.rotate(random.randint(-rotate,rotate),fillcolor=255) 
     # print(image.size)
     # image.save('train_imgs/{}.png'.format(file_name))
     return file_name,image
