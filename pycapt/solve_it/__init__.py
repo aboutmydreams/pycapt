@@ -4,7 +4,7 @@ import pycapt.solve_it.de_point
 
 
 def mode_img(mode,background=None):
-    img = pycapt.solve_it.cut_img.mode_to_img(mode,background=None)
+    img = pycapt.solve_it.cut_img.mode_to_img(mode,background)
     return img
 
 def mode_white_img(mode):

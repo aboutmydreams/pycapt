@@ -7,10 +7,10 @@ import numpy as np
 np.set_printoptions(threshold = np.inf) 
 
 # 将图片转化为数组 这里会预先灰度化
-def get_modes(img):
+def get_modes(img,Threshold=100):
     img = img.convert('L')
     mode = np.array(img)
-    mode = np.where(mode < 100, 0, 1)
+    mode = np.where(mode < Threshold, 0, 1)
     return mode
 
 # 左平移 D为正，右平移，D为负
@@ -90,6 +90,8 @@ def rectify_img(image, pans):
     for k,line in enumerate(mode.tolist()):
         line = pan(line,pans[k])
         new_mode.append(line)
+    new_mode = np.array(new_mode)
+    new_mode = np.where(new_mode < 1, 0, 255)
     array_mode = np.array(new_mode).astype('uint8')
     image = Image.fromarray(array_mode).convert('RGB')
     return image
