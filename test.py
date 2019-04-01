@@ -74,6 +74,7 @@ img.show()
 '''
 
 # 直接生成验证码训练集
+'''
 file_name,img = pycapt.train_img(
     my_str_list=['1','2','A','B'],
     width=30,
@@ -90,3 +91,4 @@ file_name,img = pycapt.train_img(
 
 print(file_name)
 img.show()
+'''

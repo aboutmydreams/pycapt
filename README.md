@@ -235,9 +235,9 @@ train_img 返回训练集图片，my_str_list，你的字符集列表，width he
 
 ```py
 filename,img = pycapt.train_img(
-    my_str_list,
-    width,
-    height,
+    my_str_list=['A','B','C','D','E'],
+    width=30,
+    height=32,
     num_of_str=1,
     font=30,
     xpan=3,
@@ -249,7 +249,11 @@ filename,img = pycapt.train_img(
     font_family='ヒラギノ角ゴシック W8.ttc')
 ```
 
+只要你再写一个循环，**img.save('train_img/{}.png'.format(file_name))** 就可以生成成千上万张训练集图片 获取标签只需要 name = file_name[0] 就可以惹。
+
+![frcc2](img/train.png)
+
 ##Last
 
-理论上只要你使用 pycapt 处理图片，调用各方法，并使用 train_img 方法 ,理论上可以解决90%验证码处理和模拟生成问题，欢迎 star pr 和提issue，如果你想更了解其中的原理，还可以点击这里并提出你的想法或pr。
+理论上只要你使用 pycapt 处理图片，调用各方法，并使用 train_img 方法 ,理论上可以解决90%验证码处理和模拟生成问题，欢迎 star pr 和提issue，如果你想更了解其中的原理，点击[这里](https://www.yuque.com/zhiwa/deepin/og0te8)，期望听见你的想法或pr。
 
