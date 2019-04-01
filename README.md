@@ -253,7 +253,10 @@ filename,img = pycapt.train_img(
 
 ![frcc2](img/train.png)
 
-##Last
+## Last
 
 理论上只要你使用 pycapt 处理图片，调用各方法，并使用 train_img 方法 ,理论上可以解决90%验证码处理和模拟生成问题，欢迎 star pr 和提issue，如果你想更了解其中的原理，点击[这里](https://www.yuque.com/zhiwa/deepin/og0te8)，期望听见你的想法或pr。
 
+### 捐赠
+
+![pay](img/pay.png)
