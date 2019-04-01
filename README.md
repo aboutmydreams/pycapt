@@ -259,6 +259,11 @@ filename,img = pycapt.train_img(
 
 ### 捐赠
 
-如果有所帮助 [请我喝一碗茶](https://www.yuque.com/zhiwa/deepin/hwnhg0)～？
+如果有所帮助 [请我喝一碗茶](https://www.yuque.com/zhiwa/deepin/hwnhg0)~
 
 ![pay](img/pay.png)
+
+如果有所帮助 请我喝一碗茶～？
+
+![pay](img/pay.png)
+>>>>>>> 7659c177ec7db97dcbc6b3b11f62f717cd39e8bd
