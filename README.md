@@ -259,4 +259,6 @@ filename,img = pycapt.train_img(
 
 ### 捐赠
 
+如果有所帮助 请我喝一碗茶～？
+
 ![pay](img/pay.png)
