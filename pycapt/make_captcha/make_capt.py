@@ -71,12 +71,19 @@ def img_pan(mode,width_x,height_y):
     if width_x != 0:
         new_mode[:,:width_x] = mode[:,-width_x:]
         new_mode[:,width_x:] = mode[:,:-width_x]
-    if height_y != 0:
-        new_mode[:height_y,:] = mode[-height_y:,:]
-        new_mode[height_y:,:] = mode[:-height_y,:]
-    return new_mode
+    new_mode1 = new_mode.copy()
+    if height_y != 0: 
+        new_mode1[:height_y,:] = new_mode[-height_y:,:]
+        new_mode1[height_y:,:] = new_mode[:-height_y,:]
+    return new_mode1
     
 
+### 测试
+# img = Image.open('1.png')
+# mode = get_modes(img)
+# mode = img_pan(mode,50,10)
+# img = mode_to_img(mode,255)
+# img.show()
 
 
 

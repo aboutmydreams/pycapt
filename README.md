@@ -182,16 +182,74 @@ img.show()
 
 ### 增加噪点
 
+**more_noise ：N是加噪率，0 < N < 1，Z为处理次数**
+
 ```py
 img = pycapt.more_noise(img,N=0.5,Z=2)
-img.show()
 ```
 
 ![frcc2](img/do1.png)
 
 ### 偏移
 
+```py
+img = pycapt.img_pan(img,10,3)
+```
 
+![frcc2](img/do2.png)
 
+### 倾斜
 
+**还是和之前一样 使用 rectify_img** 
+
+```py
+pan = [18, 18, 18, 18, 17, 17, 17,\
+        16, 16, 16, 15, 15, 15, 15, 14,\
+        14, 14, 14, 13, 13, 10, 10,\
+        10, 9, 9, 8, 7, 6, 5, 5, 4, \
+        4, 4, 4, 4, 3, 1, 0, 0, 0]
+img = pycapt.rectify_img(img,pans=pan)
+```
+
+![frcc2](img/do3.png)
+
+### 加去噪点 变平滑
+
+**clear_train_img 相当于 dele_line(line,N) 分别对line消除了N=4，3，2，1 的4次噪点，也就相当于纵向变平滑了**
+
+```py
+img = pycapt.show_noise_img(img,0.1,1)
+img = pycapt.dele_noise(img,5,2)
+img = pycapt.clear_train_img(img)
+```
+
+![frcc2](img/do4.png)
+
+这里 你完全可以使用pycapt生成深度学习验证码的训练集了。
+
+那如果想要更方便点呢？ 请看这里。
+
+### 直接生成训练集的方法
+
+train_img 返回训练集图片，my_str_list，你的字符集列表，width height 长度高度，num_of_str 显示在验证码图片上的字符串个数，会从你的 my_str_list 中随机挑选，font 显示的字体大小，xpan ypan 左右与上下随机偏移尺寸，rotate 字符随机旋转尺度，noise_N 加噪率（0 < N < 1），noise_Z 加噪次数，gray_value 背景灰度，默认白色，font_family 字体样式，如果你不知道自己电脑有哪些字体，请点击 [**这里**](<https://www.yuque.com/zhiwa/deepin/ahimr7>) 。
+
+```py
+filename,img = pycapt.train_img(
+    my_str_list,
+    width,
+    height,
+    num_of_str=1,
+    font=30,
+    xpan=3,
+    ypan=2,
+    rotate=15,
+    noise_N=0.3,
+    noise_Z=2,
+    gray_value=255,
+    font_family='ヒラギノ角ゴシック W8.ttc')
+```
+
+##Last
+
+理论上只要你使用 pycapt 处理图片，调用各方法，并使用 train_img 方法 ,理论上可以解决90%验证码处理和模拟生成问题，欢迎 star pr 和提issue，如果你想更了解其中的原理，还可以点击这里并提出你的想法或pr。
 

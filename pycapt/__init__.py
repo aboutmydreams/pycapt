@@ -18,7 +18,8 @@ def show_noise_mode(mode, N, Z):
     return new_mode
 
 # 将np数组噪点处理，mode 数组，N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回图片
-def show_noise_img(mode, N, Z):
+def show_noise_img(img, N, Z):
+    mode = get_mode(img)
     new_img = pycapt.make_captcha.show_noise_img(mode, N, Z)
     return new_img
 
@@ -99,32 +100,31 @@ def do_captcha(my_str_list,width,height,num_of_str,font=30,gray_value=255,font_f
 
 # 显示更多边缘噪点 N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回图片
 def more_noise(img,N=0.3,Z=2):
-    mode = get_mode(img)
-    img = show_noise_img(mode, N, Z)
+    # mode = get_mode(img)
+    img = show_noise_img(img, N, Z)
     return img
 
+# 字符位置偏移
 def img_pan(img,x,y):
     mode = get_mode(img)
-    new_mode = mode_pan(mode,x,y)
+    new_mode = pycapt.make_captcha.make_capt.img_pan(mode,x,y)
     img = mode_img(new_mode,255)
     return img
 
 
-def train_img(file_name,image,num_of_str=1,xpan=3,ypan=2,rotate=15,noise_N=0.3,noise_Z=2,gray_value=255):
-    # char_list,image = get_captcha(width,height,num_of_str,gray_value)
-    if type(file_name)==str:
-        file_name = file_name + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
-    elif type(file_name)==list:
-        file_name = ''.join(file_name) + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
+def train_img(my_str_list,width,height,num_of_str=1,font=30,xpan=3,ypan=2,rotate=15,noise_N=0.3,noise_Z=2,gray_value=255,font_family='ヒラギノ角ゴシック W8.ttc'):
+    char_list,image = do_captcha(my_str_list,width,height,num_of_str,font,gray_value,font_family)
+    file_name = ''.join(char_list) + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
     # image.show()
     # 在这里增加难度与异动
     mode = get_mode(image,100)
     # 偏移
-    mode = img_pan(mode,random.randint(-xpan,xpan),random.randint(-ypan,ypan))
+    mode = mode_pan(mode,random.randint(-xpan,xpan),random.randint(-ypan,ypan))
     # 添加噪点
-    image = more_noise(mode,noise_N,noise_Z)
+    mode = show_noise_mode(mode,noise_N,noise_Z)
+    image = mode_img(mode,255)
     # 旋转
-    image = image.rotate(random.randint(-rotate,rotate),fillcolor=255) 
+    image = image.rotate(random.randint(-rotate,rotate),fillcolor=(gray_value,gray_value,gray_value)) 
     # print(image.size)
     # image.save('train_imgs/{}.png'.format(file_name))
     return file_name,image

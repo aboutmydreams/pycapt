@@ -13,7 +13,7 @@ def get_modes(img,Threshold=100):
     mode = np.where(mode < Threshold, 0, 1)
     return mode
 
-# 左平移 D为正，右平移，D为负
+# 左平移 D为正，右平移，D为负，左平移
 def pan(line,D):
     if D == 0:
         return line
@@ -95,6 +95,24 @@ def rectify_img(image, pans):
     array_mode = np.array(new_mode).astype('uint8')
     image = Image.fromarray(array_mode).convert('RGB')
     return image
+
+### 测试：
+'''
+img = Image.open('1.png')
+pan0 = [18, 18, 18, 18, 17, 17, 17,\
+        16, 16, 16, 15, 15, 15, 15, 14,\
+        14, 14, 14, 13, 13, 10, 10,\
+        10, 9, 9, 8, 7, 6, 5, 5, 4, \
+        4, 4, 4, 4, 3, 1, 0, 0, 0]
+
+def contrast(num):
+    return -num
+
+pan1 = list(map(contrast,pan0))
+print(pan)
+img = rectify_img(img,pans=pan1)
+img.show()
+'''
 
 # 斜体矩阵纠正
 def rectify_mode(mode, pans):
