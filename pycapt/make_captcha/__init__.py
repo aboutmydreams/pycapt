@@ -5,32 +5,27 @@ import pycapt.make_captcha.my_any_img
 
 # 图像转化为01 np数组 Threshold为阀值
 def get_mode(img,Threshold=100):
-    mode = pycapt.make_captcha.make_capt.get_modes(img,Threshold)
-    return mode
+    return pycapt.make_captcha.make_capt.get_modes(img,Threshold)
 
 
 # 将01 np数组转化为黑白图片
 def mode_to_img(mode):
-    img = pycapt.make_captcha.noise.mode_to_draw(mode)
-    return img
+    return pycapt.make_captcha.noise.mode_to_draw(mode)
 
 
 # 将np数组噪点处理，mode 数组，N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回数组
 def show_noise_mode(mode, N, Z):
-    new_mode = pycapt.make_captcha.noise.more_noise(mode, N, Z)
-    return new_mode
+    return pycapt.make_captcha.noise.more_noise(mode, N, Z)
 
 
 # 将np数组噪点处理，mode 数组，N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回图片
 def show_noise_img(mode, N, Z):
-    new_img = pycapt.make_captcha.noise.more_noise(mode, N, Z, to_img='toimg')
-    return new_img
+    return pycapt.make_captcha.noise.more_noise(mode, N, Z, to_img='toimg')
 
 
 # 偏移 传入np数组，横向偏移(默认右移)，纵向偏移，传出新的mode
 def mode_pan(mode,width_x,height_y):
-    new_mode = pycapt.make_captcha.make_capt.img_pan(mode,width_x,height_y)
-    return new_mode
+    return pycapt.make_captcha.make_capt.img_pan(mode,width_x,height_y)
 
 
 # 生成验证码 长宽 字符串个数 背景颜色 一般要上线用的话看源码改一改就好了

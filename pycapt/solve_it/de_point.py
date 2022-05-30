@@ -18,13 +18,10 @@ def two_value(image, G):
     # 二值数组
     image = image.convert("L")
     img_dic = {}
-    for y in range(0, image.size[1]):
-        for x in range(0, image.size[0]):
+    for y in range(image.size[1]):
+        for x in range(image.size[0]):
             g = image.getpixel((x, y))
-            if g > G:
-                img_dic[(x, y)] = 1
-            else:
-                img_dic[(x, y)] = 0
+            img_dic[(x, y)] = 1 if g > G else 0
     return img_dic
 
 
@@ -38,16 +35,12 @@ def mode_to_img(mode,background=None):
     if background:
         mode = np.where(mode < 1, 0, background)
     array_mode = np.array(mode).astype('uint8')
-    image = Image.fromarray(array_mode).convert('RGB')
-    return image
+    return Image.fromarray(array_mode).convert('RGB')
 
 def clear_noise(image, N, Z):
     # 0和1互相转换
     def one_zero(num):
-        if num == 1:
-            return 0
-        else:
-            return 1
+        return 0 if num == 1 else 1
     # 二值数组
     image = image.convert("L")
     img_dic = two_value(image,100)
@@ -76,8 +69,8 @@ def save_img(filename, size, img_dic):
     image = Image.new("1", size)
     draw = ImageDraw.Draw(image)
 
-    for x in range(0, size[0]):
-        for y in range(0, size[1]):
+    for x in range(size[0]):
+        for y in range(size[1]):
             draw.point((x, y), img_dic[(x, y)])
 
     image.save(filename)

@@ -8,8 +8,8 @@ import random
 # 将np数组转化成01 dic 后面会废弃
 def mode_to_dic(mode):
     dic = {}
-    for line in range(0,mode.shape[1]):
-        for i in range(0,mode.shape[0]):
+    for line in range(mode.shape[1]):
+        for i in range(mode.shape[0]):
             dic[(i, line)] = mode[i,line]
     return dic
 
@@ -17,8 +17,8 @@ def mode_to_dic(mode):
 def mode_to_draw(mode):
     image = Image.new("1", (mode.shape[1],mode.shape[0]))
     draw = ImageDraw.Draw(image)
-    for x in range(0, mode.shape[0]):
-        for y in range(0, mode.shape[1]):
+    for x in range(mode.shape[0]):
+        for y in range(mode.shape[1]):
             draw.point((y, x), int(mode[x,y]))
     return image
 
@@ -34,10 +34,7 @@ def mode_to_draw(mode):
 def more_noise(mode, N, Z, to_img=None):
     # 0和1互相转换
     def one_zero(num):
-        if num == 1:
-            return 0
-        else:
-            return 1
+        return 0 if num == 1 else 1
     
 
     # 二值数组

@@ -45,9 +45,7 @@ def clear_line(image, N, pans=None):
 
 # 判断列表中连续的三个位置是否是0,且相邻位置是1，替换掉这3个0
 def is_three0(column, N):
-    if N == 0:
-        return column
-    else:
+    if N != 0:
         column_str = ''.join(map(str,column))
         zero_site_list = [i for i,v in enumerate(column) if v==0]
 
@@ -59,7 +57,7 @@ def is_three0(column, N):
             if i > 0 and column_str[i:i+N] == '0' * N and column_str[i+N] == '1' and column_str[i-1] == '1':
                 column_str = column_str[:i] + '1' * N + column_str[i+N:]
         column = list(map(int,column_str))
-        return column
+    return column
 
 # 处理真实图片
 def clear_my_line(img):
@@ -120,5 +118,4 @@ def rectify_mode(mode, pans):
     for k,line in enumerate(mode.tolist()):
         line = pan(line,pans[k])
         new_mode.append(line)
-    array_mode = np.array(new_mode).astype('uint8')
-    return array_mode
+    return np.array(new_mode).astype('uint8')

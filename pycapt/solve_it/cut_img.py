@@ -7,8 +7,7 @@ def mode_to_img(mode,background=None):
     if background:
         mode = np.where(mode < 1, 0, background)
     array_mode = np.array(mode).astype('uint8')
-    image = Image.fromarray(array_mode).convert('RGB')
-    return image
+    return Image.fromarray(array_mode).convert('RGB')
 
 def get_modes(img,Threshold=100):
     img = img.convert('L')
@@ -34,10 +33,7 @@ def get_small_img(img,box=(10, 4, 150, 36),background=None):
         mode = np.where(mode < 100, 0, background)
     else:
         mode = np.where(mode < 100, 0, 1)
-    if background:
-        return mode_to_img(mode,background)
-    else:
-        return mode_to_img(mode)
+    return mode_to_img(mode,background) if background else mode_to_img(mode)
 
 def cut_mode(mode,max_width,need_num=4):
     ### 获取边缘列（字母边缘 白色）位置的列表 
@@ -87,13 +83,11 @@ def cut_mode(mode,max_width,need_num=4):
                 stopat = i*s+1
                 lop = i
             s -= 1
-            for i in range(1, n-lop):
-                ret.append(m[stopat+i*s:stopat+(i+1)*s])
-            return ret
+            ret.extend(m[stopat+i*s:stopat+(i+1)*s] for i in range(1, n-lop))
         else:
-            for i in range(n):
-                ret.append(m[i*s:(i+1)*s])
-            return ret
+            ret.extend(m[i*s:(i+1)*s] for i in range(n))
+
+        return ret
         
         
     need_list = []

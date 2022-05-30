@@ -9,24 +9,20 @@ name = "pycapt"
 
 # 图像转化为01 np数组 Threshold为阀值
 def get_mode(img,Threshold=100):
-    mode = pycapt.solve_it.de_line.get_modes(img,Threshold)
-    return mode
+    return pycapt.solve_it.de_line.get_modes(img,Threshold)
 
 # 将np数组噪点处理，mode 数组，N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回数组
 def show_noise_mode(mode, N, Z):
-    new_mode = pycapt.make_captcha.show_noise_mode(mode, N, Z)
-    return new_mode
+    return pycapt.make_captcha.show_noise_mode(mode, N, Z)
 
 # 将np数组噪点处理，mode 数组，N是加噪率（边缘存在1个以上的黑点那么这个点有一点概率变黑） Z 加噪次数 返回图片
 def show_noise_img(img, N, Z):
     mode = get_mode(img)
-    new_img = pycapt.make_captcha.show_noise_img(mode, N, Z)
-    return new_img
+    return pycapt.make_captcha.show_noise_img(mode, N, Z)
 
 # 偏移 传入np数组，横向偏移(默认右移)，纵向偏移，传出新的mode
 def mode_pan(mode,width_x,height_y):
-    new_mode = pycapt.make_captcha.mode_pan(mode,width_x,height_y)
-    return new_mode
+    return pycapt.make_captcha.mode_pan(mode,width_x,height_y)
 
 # 生成简单的大写字母训练集图片
 def get_train_img(width,height,num_of_str=1,xpan=3,ypan=2,rotate=15,gray_value=255):
@@ -35,38 +31,31 @@ def get_train_img(width,height,num_of_str=1,xpan=3,ypan=2,rotate=15,gray_value=2
 
 # 将np数组转化为图片
 def mode_img(mode,background=None):
-    img = pycapt.solve_it.mode_img(mode,background)
-    return img
+    return pycapt.solve_it.mode_img(mode,background)
 
 # 将01数组转化为黑白图片
 def mode_white_img(mode):
-    img = pycapt.pycapt.mode_img(mode,background=255)
-    return img
+    return pycapt.pycapt.mode_img(mode,background=255)
 
 # 消除噪点，N是周围相异像素个数喵，Z是处理次数
 def dele_noise(image, N, Z):
-    img = pycapt.solve_it.dele_noise(image, N, Z)
-    return img
+    return pycapt.solve_it.dele_noise(image, N, Z)
 
 # 处理干扰线
 def dele_line(image, N, pans=None):
-    img = pycapt.solve_it.dele_line(image, N, pans=None)
-    return img
+    return pycapt.solve_it.dele_line(image, N, pans=None)
 
 # 清理一般有干扰线的验证码
 def clear_train_img(image):
-    img = pycapt.solve_it.clear_train_img(image)
-    return img
+    return pycapt.solve_it.clear_train_img(image)
 
 # 清理一般有干扰线的斜体验证码
 def clear_lib_line(image):
-    img = pycapt.solve_it.clear_lib_line(image)
-    return img
+    return pycapt.solve_it.clear_lib_line(image)
 
 # 将图片切割为np数组列表
 def cut_img_to_mode_list(image,max_width):
-    img_mode_list = pycapt.solve_it.cut_img_to_mode_list(image,max_width)
-    return img_mode_list
+    return pycapt.solve_it.cut_img_to_mode_list(image,max_width)
 
 # 将图片切割为图片列表
 def cut_img_to_img_list(image,max_width,background=None):

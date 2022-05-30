@@ -38,7 +38,7 @@ def get_captcha(width,height,num_of_str,gray_value=255):
             draw.point((x, y), fill=(255,255,255))
 
     # 输出文字:
-    char_list = [rndChar() for i in range(num_of_str)]
+    char_list = [rndChar() for _ in range(num_of_str)]
 
     for t in range(num_of_str):
         # rndColor2()
@@ -61,8 +61,7 @@ def mode_to_img(mode,background=None):
     if background:
         mode = np.where(mode < 1, 0, background)
     array_mode = np.array(mode).astype('uint8')
-    image = Image.fromarray(array_mode).convert('RGB')
-    return image
+    return Image.fromarray(array_mode).convert('RGB')
 
 
 # 偏移 传入np数组，横向偏移(默认右移)，纵向偏移，传出新的mode
@@ -90,7 +89,10 @@ def img_pan(mode,width_x,height_y):
 # 生成训练集图片
 def train_img(width,height,num_of_str=1,xpan=3,ypan=2,rotate=15,gray_value=255):
     char_list,image = get_captcha(width,height,num_of_str,gray_value)
-    file_name = char_list[0] + '-' + str(time.time())[-10:-3].replace('.',str(random.random())[2:4])
+    file_name = f'{char_list[0]}-' + str(time.time())[-10:-3].replace(
+        '.', str(random.random())[2:4]
+    )
+
     # image.show()
     # 在这里增加难度与异动
     mode = get_modes(image,100)
@@ -99,7 +101,7 @@ def train_img(width,height,num_of_str=1,xpan=3,ypan=2,rotate=15,gray_value=255):
     # 添加噪点
     image = make_captcha.noise.more_noise(mode,N=0.3,Z=2,to_img='to_img')
     # 旋转
-    image = image.rotate(random.randint(-rotate,rotate),fillcolor=255) 
+    image = image.rotate(random.randint(-rotate,rotate),fillcolor=255)
     # print(image.size)
     # image.save('train_imgs/{}.png'.format(file_name))
     return file_name,image
