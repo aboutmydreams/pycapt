@@ -2,7 +2,7 @@ import pycapt
 from PIL import Image
 
 # 处理验证码
-'''
+"""
 img = Image.open('1.png')
 img.show()
 img = pycapt.two_value(img, Threshold=100)
@@ -36,10 +36,10 @@ img = pycapt.dele_line(img, 1)
 a = pycapt.cut_img_to_img_list(img, 30, 255)
 for i in a:
     i.show()
-'''
+"""
 
 # 生产验证码训练集
-'''
+"""
 name, img = pycapt.do_captcha(
     my_str_list=['A', 'B', 'C', 'D', '1', '2', '3'],
     width=160,
@@ -71,11 +71,11 @@ img = pycapt.show_noise_img(img, 0.1, 1)
 img = pycapt.dele_noise(img, 5, 2)
 img = pycapt.clear_train_img(img)
 img.show()
-'''
+"""
 
 
 # 直接生成验证码训练集
-'''
+"""
 file_name,img = pycapt.train_img(
     my_str_list=['1','2','A','B'],
     width=30,
@@ -92,4 +92,4 @@ file_name,img = pycapt.train_img(
 
 print(file_name)
 img.show()
-'''
+"""

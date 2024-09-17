@@ -1,0 +1,31 @@
+name: Auto CI and Build Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  auto-ci-build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install setuptools
+        run: |
+          python3 -m pip install setuptools
+          python3 -m pip install wheel
+
+      - name: Build and List contents of dist directory
+        run: |
+          python3 -m unittest discover -s tests
+          python3 setup.py sdist bdist_wheel
+          ls -l dist/

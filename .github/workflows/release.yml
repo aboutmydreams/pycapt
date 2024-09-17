@@ -1,0 +1,59 @@
+name: Auto Publish to PyPI and GitHub Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "way3/**"
+      - ".github/workflows/**"
+      - "tests/**"
+      - "setup.py"
+
+jobs:
+  update-version-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: hhttps://pypi.org/p/way3
+    permissions:
+      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install setuptools
+        run: |
+          python3 -m pip install setuptools
+          python3 -m pip install wheel
+
+      - name: Build and List contents of dist directory
+        run: |
+          python3 setup.py sdist bdist_wheel
+          ls -l dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.8.14
+        with:
+          repository-url: https://upload.pypi.org/legacy/
+          packages-dir: dist/
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Extract version from setup.py
+        id: extract_version
+        run: echo "::set-output name=version::$(sed -n 's/.*version="\([^"]*\)".*/\1/p' setup.py)"
+        shell: bash
+
+      - name: Create GitHub Release
+        if: success()
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.extract_version.outputs.version }}
+          files: dist/*
+          token: ${{ secrets.RESP_GITHUB_TOKEN }}
