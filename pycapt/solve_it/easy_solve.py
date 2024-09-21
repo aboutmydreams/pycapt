@@ -1,5 +1,10 @@
 from pycapt.solve_it.cut_img import get_modes, mode_to_img, cut_img, get_small_modes
-from pycapt.solve_it.de_line import clear_line, clear_my_line, clear_my_train_img
+from pycapt.solve_it.de_line import (
+    clear_line,
+    clear_my_line,
+    clear_my_train_img,
+    rectify_img as rectify_img,
+)
 from pycapt.solve_it.de_point import clear_noise
 
 
