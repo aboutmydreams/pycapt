@@ -2,7 +2,7 @@ name = "pycapt"
 
 # 从 pycapt 中导入相关模块和函数
 from .solve_it.easy_solve import (  # noqa: E402
-    get_mode as get_mode,
+    get_modes as get_modes,
     mode_img as mode_img,
     two_value as two_value,
     mode_white_img as mode_white_img,
@@ -27,6 +27,7 @@ from .make_captcha.easy_mode import (  # noqa: E402
     train_img as train_img,
     do_captcha as do_captcha,
     more_noise as more_noise,
+    get_mode as get_mode,
 )
 
 from .logo.android_logo import (  # noqa: E402
