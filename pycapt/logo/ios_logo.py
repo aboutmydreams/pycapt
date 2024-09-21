@@ -48,8 +48,10 @@ def generate_ios_icon_assets(
 
     # 生成每个图标
     for filename, size in icon_sizes.items():
+        resized_image_path = os.path.join(output_path, filename)
+
         resize_and_save_image(
-            image_path=image_path, size=size, output_path=output_path, filename=filename
+            image_path=image_path, size=size, output_path=resized_image_path
         )
         # resized_image = generate_resized_image(image_path, size)
         # resized_image_path = os.path.join(output_path, filename)

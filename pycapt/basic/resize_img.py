@@ -2,7 +2,7 @@ from PIL import Image
 import os
 
 
-def resize_and_save_image(image_path, size, output_path, filename):
+def resize_and_save_image(image_path, size, output_path):
     """根据给定的尺寸调整图片大小并保存到指定路径。"""
     try:
         original_image = Image.open(image_path)
@@ -20,9 +20,9 @@ def resize_and_save_image(image_path, size, output_path, filename):
 # 示例调用
 if __name__ == "__main__":
     # 输入的图片路径
-    image_path = "path/to/your/image.png"  # 请替换为你的图片路径
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    image_path = f"{current_dir}/appstore.png"  # 请替换为你的图片路径
     size = (100, 100)  # 目标尺寸
-    output_path = "output/resized_image.png"  # 输出路径
-    filename = "resized_image.png"  # 文件名（在这个示例中不直接使用）
+    output_path = f"{current_dir}/resized_image.png"  # 输出路径
 
-    resize_and_save_image(image_path, size, output_path, filename)
+    resize_and_save_image(image_path, size, output_path)
