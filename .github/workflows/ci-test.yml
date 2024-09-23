@@ -23,7 +23,7 @@ jobs:
         run: |
           python3 -m pip install setuptools
           python3 -m pip install wheel
-          python3 -m pip install PIL
+          python3 -m pip install Pillow
           python3 -m pip install numpy
 
       - name: Build and List contents of dist directory
