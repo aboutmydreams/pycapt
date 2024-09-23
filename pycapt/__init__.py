@@ -22,6 +22,7 @@ from .make_captcha.easy_mode import (  # noqa: E402
     show_noise_mode as show_noise_mode,
     show_noise_img as show_noise_img,
     mode_pan as mode_pan,
+    easy_train_img as easy_train_img,
     get_train_img as get_train_img,
     img_pan as img_pan,
     train_img as train_img,

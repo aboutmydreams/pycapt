@@ -3,7 +3,7 @@ name: Auto Publish to PyPI and GitHub Release
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "pycapt/**"
       - ".github/workflows/**"

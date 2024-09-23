@@ -76,7 +76,7 @@ img.show()
 
 # 直接生成验证码训练集
 """
-file_name,img = pycapt.train_img(
+file_name,img = pycapt.easy_train_img(
     my_str_list=['1','2','A','B'],
     width=30,
     height=32,
@@ -93,20 +93,3 @@ file_name,img = pycapt.train_img(
 print(file_name)
 img.show()
 """
-file_name, img = pycapt.train_img(
-    my_str_list=["1", "2", "A", "B"],
-    width=30,
-    height=32,
-    num_of_str=4,
-    font=30,
-    xpan=3,
-    ypan=2,
-    rotate=15,
-    noise_N=0.3,
-    noise_Z=2,
-    gray_value=255,
-    font_family="ヒラギノ角ゴシック W8.ttc",
-)
-
-print(file_name)
-img.show()

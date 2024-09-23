@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pycapt",
-    version="1.0.14",
+    version="1.0.15",
     author="aboutmydreams",
     author_email="aboutmydreams@163.com",
     description="a library that processes verification codes",
