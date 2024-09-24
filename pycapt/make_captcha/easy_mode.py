@@ -36,7 +36,7 @@ def make_capt_img(
     height,
     num_of_str,
     gray_value=255,
-    font_family="ヒラギノ角ゴシック W8.ttc",
+    font_family="OpenSans-Bold.ttf",
 ):
     str_list, image = mk_captcha(
         my_str_list, width, height, num_of_str, gray_value, font_family
@@ -66,7 +66,7 @@ def easy_train_img(
     noise_N=0.3,
     noise_Z=2,
     gray_value=255,
-    font_family="ヒラギノ角ゴシック W8.ttc",
+    font_family="OpenSans-Bold.ttf",
 ):
     char_list, image = do_captcha(
         my_str_list, width, height, num_of_str, font, gray_value, font_family
@@ -105,7 +105,7 @@ def do_captcha(
     num_of_str,
     font=30,
     gray_value=255,
-    font_family="ヒラギノ角ゴシック W8.ttc",
+    font_family="OpenSans-Bold.ttf",
 ):
     """生成验证码。"""
     return mk_captcha(

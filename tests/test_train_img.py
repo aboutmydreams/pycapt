@@ -25,7 +25,7 @@ class TestCaptcha(unittest.TestCase):
             num_of_str=4,
             font=30,
             gray_value=255,
-            font_family="ヒラギノ角ゴシック W8.ttc",
+            font_family="OpenSans-Bold.ttf",
         )
         img.save(self.image_path)  # Save the generated image
 
@@ -57,7 +57,7 @@ class TestCaptcha(unittest.TestCase):
             noise_N=0.3,
             noise_Z=2,
             gray_value=255,
-            font_family="ヒラギノ角ゴシック W8.ttc",
+            font_family="OpenSans-Bold.ttf",
         )
         img.save(self.train_image_path)  # Save the generated training image
 

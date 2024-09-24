@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import random
+import os
 
 
 # 随机字母:
@@ -29,14 +30,17 @@ def mk_captcha(
     num_of_str,
     font=30,
     gray_value=255,
-    font_family="ヒラギノ角ゴシック W8.ttc",
+    font_family=None,
 ):
     image = Image.new("RGB", (width, height), (255, 255, 255))
 
     # 创建Font对象:
-    font = ImageFont.truetype(
-        font_family, font
-    )  # '/Library/Fonts/Bodoni 72.ttc'  'ヒラギノ角ゴシック W8.ttc'
+    if font_family is None or font_family == "OpenSans-Bold.ttf":
+        # 创建Font对象:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        font = ImageFont.truetype(f"{current_dir}/OpenSans-Bold.ttf", 31)
+    else:
+        font = ImageFont.truetype(font_family, font)
 
     # 创建Draw对象:
     draw = ImageDraw.Draw(image)
@@ -61,6 +65,6 @@ def mk_captcha(
 
 
 ### 测试
-# a,b = mk_captcha(['A','B','1','2','3','4'],160,40,4)
+# a, b = mk_captcha(["A", "B", "1", "2", "3", "4"], 160, 40, 4)
 # print(a)
 # b.show()

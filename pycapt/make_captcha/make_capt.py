@@ -4,6 +4,7 @@ from pycapt.make_captcha.noise import more_noise
 import numpy as np
 import random
 import time
+import os
 
 
 # 随机字母:
@@ -30,9 +31,8 @@ def get_captcha(width, height, num_of_str, gray_value=255):
     image = Image.new("RGB", (width, height), (255, 255, 255))
 
     # 创建Font对象:
-    font = ImageFont.truetype(
-        "ヒラギノ角ゴシック W8.ttc", 31
-    )  # '/Library/Fonts/Bodoni 72.ttc'
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    font = ImageFont.truetype(f"{current_dir}/OpenSans-Bold.ttf", 31)
 
     # 创建Draw对象:
     draw = ImageDraw.Draw(image)
