@@ -47,7 +47,7 @@ name, img = pycapt.do_captcha(
     num_of_str=4,
     font=30,
     gray_value=255,
-    font_family='ヒラギノ角ゴシック W8.ttc')
+    font_family='OpenSans-Bold.ttf')
 
 
 # pycapt.get_train_img()
@@ -88,7 +88,7 @@ file_name,img = pycapt.easy_train_img(
     noise_N=0.3,
     noise_Z=2,
     gray_value=255,
-    font_family='ヒラギノ角ゴシック W8.ttc')
+    font_family='OpenSans-Bold.ttf')
 
 print(file_name)
 img.show()

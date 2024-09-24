@@ -25,7 +25,7 @@ class TestCaptcha(unittest.TestCase):
             num_of_str=4,
             font=30,
             gray_value=255,
-            font_family="OpenSans-Bold.ttf",
+            font_family=None,
         )
         img.save(self.image_path)  # Save the generated image
 
