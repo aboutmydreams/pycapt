@@ -20,15 +20,16 @@ pycapt 是我在处理验证码时编写的一系列图像处理的算法包，�
 
 pycapt 包括处理验证码和生成验证码两部分，多谢我的好友 [exqlnet](https://github.com/exqlnet) [ZhouYingSASA](https://github.com/ZhouYingSASA) 的共同帮助 发布 pycapt 1.0.1
 
-### 依赖与安装
+## 依赖与安装
 
 ```bash
-Pillow
-numpy
+pip3 install Pillow numpy pycapt
 ```
 
-```py
-pip3 install pycapt
+或者使用 poetry 安装：
+
+```bash
+poetry add Pillow numpy pycapt 
 ```
 
 ### 目录结构

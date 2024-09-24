@@ -18,16 +18,16 @@ pycapt is a collection of image processing algorithms I created for handling CAP
 
 pycapt includes both CAPTCHA processing and generation. Special thanks to my friends [exqlnet](https://github.com/exqlnet) and [ZhouYingSASA](https://github.com/ZhouYingSASA) for their support in releasing pycapt version 1.0.1.
 
-
 ## Dependencies and Installation
 
 ```bash
-Pillow
-numpy
+pip3 install Pillow numpy pycapt
 ```
 
-```py
-pip3 install pycapt
+or use poetry to install:
+
+```bash
+poetry add Pillow numpy pycapt 
 ```
 
 ### Directory Structure
